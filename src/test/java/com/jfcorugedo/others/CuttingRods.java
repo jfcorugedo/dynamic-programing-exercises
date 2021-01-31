@@ -2,7 +2,6 @@ package com.jfcorugedo.others;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +27,9 @@ public class CuttingRods {
      * So the solution will be the maximum value of this series:
      * max(p1 + r(n-1), p2 + r(n-2), ...., p(n-1) + r1, p(n))
      *
+     * i.e:
+     * R[4] = max{p1 + R[3], p2 + R[2], p3 + R[1], p4 + R[0]}
+     *
      * This solution has exponential complexity O(n^2)
      */
     @Test
@@ -50,14 +52,17 @@ public class CuttingRods {
         return maxValue;
     }
 
-
     /**
      * Improve implementation now it has O(n) complexity
      *
      * R[n] = max revenue of a rod with size n
      * R[n] = max{P[1] + R[n-1], P[2] + R[n-2], ...., P[n]}
      *
-     * i.e: R[4] = max{P[1] + R[3], P[2] + R[2], P[3] + R[1], P[4]}
+     * i.e:
+     * R[1] = max{P[1]}
+     * R[2] = max{P[1] + R[1], P[2]}
+     * R[3] = max{P[1] + R[2], P[2] + R[1], P[3]}
+     * R[4] = max{P[1] + R[3], P[2] + R[2], P[3] + R[1], P[4]}
      *
      */
     @Test
@@ -69,21 +74,25 @@ public class CuttingRods {
     }
 
     private int revenue2(int length, List<Integer> prices) {
-        List<Integer> R = new ArrayList<>(length+1);
-        R.add(0, 0);
+        //R[n] = max{P(1) + R[n-1], P(2) + R[n-2], ..., P(n) + R[0]}
+        //R[0] = 0
+        //R[1] = P(1) + R[0]
+        //R[2] = max{ P(1) + R[1], P(2) + R[0] }
+        //R[3] = max{ P(1) + R[2], P(2) + R[1], P(3) + R[0] }
+        //...
+        int[] R = new int[length+1];
+        R[0] = 0;
 
-        for(int i = 1 ; i <=length ; i++) {
+        for(int i = 1 ; i <= length ; i++) {
             int maxValue = -1;
-            for(int j = 1 ; j <= i ; j++) {
-                int temp = prices.get(j-1) + R.get(i-j);
-                if(maxValue < temp) maxValue = temp;
+            for(int j = 1 ; j <= i; j++) {
+                int value = prices.get(j-1) + R[i-j];
+                if(value > maxValue) maxValue = value;
             }
-            R.add(i, maxValue);
+            R[i] = maxValue;
         }
 
-
-
-        return R.stream().mapToInt(i -> i).max().getAsInt();
+        return R[length];
     }
 
     private int givenSolution(int n, List<Integer> prices) {
