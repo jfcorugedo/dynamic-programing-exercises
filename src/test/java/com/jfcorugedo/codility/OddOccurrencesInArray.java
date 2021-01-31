@@ -2,15 +2,17 @@ package com.jfcorugedo.codility;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * A non-empty array A consisting of N integers is given. The array contains an odd number of elements, and each element of the array can be paired with another element that has the same value, except for one element that is left unpaired.
+ * A non-empty array A consisting of N integers is given. The array contains an odd number of elements, and each element
+ * of the array can be paired with another element that has the same value, except for one element that is left unpaired.
  *
  * For example, in array A such that:
  *
@@ -46,21 +48,33 @@ public class OddOccurrencesInArray {
     public void findUnpaired() {
 
         assertThat(solution(new int[]{9, 3, 9, 3, 9, 7, 9})).isEqualTo(7);
+        assertThat(
+                solution(
+                        Stream.concat(
+                                Stream.concat(
+                                        IntStream.range(1,40000).mapToObj(Integer::valueOf),
+                                        Stream.of(Integer.valueOf(54400))
+                                ),
+                                IntStream.range(1,40000).mapToObj(Integer::valueOf)
+                        ).mapToInt(Integer::intValue).toArray()
+                )
+        ).isEqualTo(54400);
     }
 
-    public int solution(int[] A) {
+    public int solution(int[] samples) {
 
-        boolean found = false;
-        int unpaired = 0;
-        for(int i = 0 ; i < A.length && unpaired == -1 ; i++) {
-            int value = A[i];
-            for (int j = 0; j < A.length && !found; j++) {
-                if (A[j] == value && j != i) {
-                    found = true;
+        List<Integer> sortedSamples = Arrays.stream(samples).sorted().mapToObj(Integer::valueOf).collect(Collectors.toList());
+
+        int unpaired = -1;
+        for(int i = 1 ; i < sortedSamples.size() && unpaired == -1 ; i++) {
+            if(i == sortedSamples.size()-1) {
+                unpaired = sortedSamples.get(i);
+            } else {
+                int current = sortedSamples.get(i);
+                if (current != sortedSamples.get(i - 1) && current != sortedSamples.get(i + 1)) {
+                    unpaired = current;
                 }
             }
-            if (!found) unpaired = value;
-            found = false;
         }
 
         return unpaired;
@@ -77,7 +91,6 @@ public class OddOccurrencesInArray {
         int unpaired = 0;
         for(int i = 0 ; i < A.length ; i++) {
             unpaired ^= A[i];
-            System.out.println(unpaired);
         }
 
         return unpaired;
