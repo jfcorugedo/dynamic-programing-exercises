@@ -2,7 +2,9 @@ package com.jfcorugedo.others;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -67,29 +69,72 @@ public class ClimbingStairs {
         int[] S = new int[steps+1];
         S[1] = 1;
         S[2] = 2;
-        int res = IntStream.range(3, steps+1).map(
-                index -> {
-                    S[index] = S[index-1] + S[index-2];
-                    return S[index];
-                }
-        ).max().orElse(-1);
 
-        System.out.println("===> " + res);
-        return res;
+        for(int i = 3 ; i <= steps ; i++) {
+            S[i] = S[i-1] + S[i-2];
+        }
+
+        return S[steps];
+    }
+
+    /**
+     * Now using streams instead of arrays
+     */
+    @Test
+    public void climbingStairs3() {
+
+        assertThat(solution2(1)).isEqualTo(1);
+        assertThat(solution2(2)).isEqualTo(2);
+        assertThat(solution2(3)).isEqualTo(3);
+        assertThat(solution2(4)).isEqualTo(5);
+        assertThat(solution2(10)).isEqualTo(89);
+        assertThat(solution2(45)).isEqualTo(1836311903);
+    }
+
+    /**
+     * S[n] where each element contains the solution for n steps.
+     * Given that S[1] = 1 and S[2] = 2.
+     * And given that S[i] = S[i-1] + S[i-2]
+     * This solution has a O(n) complexity.
+     * @param steps
+     * @return
+     */
+    private int solution3(int steps) {
+
+        //S(0) = 0
+        //S(1) = 1
+        //S(2) = 2
+        if(steps <= 2) return steps;
+
+        //S(n) = S(n-1) + S(n-2)
+        List<Integer> result = IntStream
+                .range(0, steps + 1)
+                .mapToObj(Integer::valueOf)
+                .reduce(new ArrayList<Integer>(), (acc, index) -> {
+                    if(index <= 2) {
+                        acc.add(index);
+                    } else {
+                        acc.add(acc.get(index - 1) + acc.get(index - 2));
+                    }
+                    return acc;
+                }, (acc1, acc2) -> {acc1.addAll(acc2); return acc1;});
+
+
+        return result.get(steps);
     }
 
     /**
      * Now climbing 1, 2 or three steps at a time
      */
     @Test
-    public void climbingStairs3() {
+    public void climbingStairs4() {
 
-        assertThat(solution3(1)).isEqualTo(1);
-        assertThat(solution3(2)).isEqualTo(2);
-        assertThat(solution3(3)).isEqualTo(4);
-        assertThat(solution3(4)).isEqualTo(7);
-        assertThat(solution3(10)).isEqualTo(274);
-        assertThat(solution3(45)).isEqualTo(2082876103);
+        assertThat(solution4(1)).isEqualTo(1);
+        assertThat(solution4(2)).isEqualTo(2);
+        assertThat(solution4(3)).isEqualTo(4);
+        assertThat(solution4(4)).isEqualTo(7);
+        assertThat(solution4(10)).isEqualTo(274);
+        assertThat(solution4(45)).isEqualTo(2082876103);
     }
 
     /**
@@ -100,7 +145,7 @@ public class ClimbingStairs {
      * @param steps
      * @return
      */
-    private int solution3(int steps) {
+    private int solution4(int steps) {
 
         if(steps == 1) return 1;
         if(steps == 2) return 2;
@@ -123,14 +168,14 @@ public class ClimbingStairs {
 
 
     @Test
-    public void climbingStairs4() {
+    public void climbingStairs5() {
 
-        assertThat(solution4(1, 2)).isEqualTo(1);
-        assertThat(solution4(2, 2)).isEqualTo(2);
-        assertThat(solution4(3, 2)).isEqualTo(3);
-        assertThat(solution4(4, 2)).isEqualTo(5);
-        assertThat(solution4(10, 2)).isEqualTo(89);
-        assertThat(solution4(45, 2)).isEqualTo(1836311903);
+        assertThat(solution5(1, 2)).isEqualTo(1);
+        assertThat(solution5(2, 2)).isEqualTo(2);
+        assertThat(solution5(3, 2)).isEqualTo(3);
+        assertThat(solution5(4, 2)).isEqualTo(5);
+        assertThat(solution5(10, 2)).isEqualTo(89);
+        assertThat(solution5(45, 2)).isEqualTo(1836311903);
     }
 
     /**
@@ -141,7 +186,7 @@ public class ClimbingStairs {
      * @param ways
      * @return
      */
-    private int solution4(int steps, int ways) {
+    private int solution5(int steps, int ways) {
 
         if(steps == 1) return 1;
         if(steps == 2) return 2;
