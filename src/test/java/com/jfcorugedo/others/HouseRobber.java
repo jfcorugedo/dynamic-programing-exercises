@@ -30,7 +30,7 @@ public class HouseRobber {
         assertThat(solution(2, Arrays.asList(1, 4))).isEqualTo(4);
         assertThat(solution(2, Arrays.asList(4, 1))).isEqualTo(4);
         assertThat(solution(3, Arrays.asList(4, 1, 5))).isEqualTo(9);
-        assertThat(solution(1, Arrays.asList(4, 10, 5))).isEqualTo(10);
+        assertThat(solution(3, Arrays.asList(4, 10, 5))).isEqualTo(10);
         assertThat(solution(4, Arrays.asList(4, 10, 5, 1))).isEqualTo(11);
         assertThat(solution(4, Arrays.asList(4, 10, 8, 1))).isEqualTo(12);
         assertThat(solution(5, Arrays.asList(1, 2, 3, 4, 5))).isEqualTo(9);
@@ -82,14 +82,14 @@ public class HouseRobber {
      */
     private int solution(int houses, List<Integer> money) {
 
-        if( houses <= 2) {
-            return money.stream().max(Comparator.comparingInt(a -> a)).orElse(-1);
-        }
+        if(houses == 1) return money.get(0);
+
         int[] R = new int[houses + 1];
         R[0] = 0;
         R[1] = money.get(0);
+        R[2] = max(money.get(0), money.get(1));
 
-        for(int i = 2 ; i <= houses ; i++) {
+        for(int i = 3 ; i <= houses ; i++) {
 
             R[i] = max(R[i-1], money.get(i-1) + R[i-2]);
             /* Old way
@@ -99,8 +99,6 @@ public class HouseRobber {
             }
             R[i] = maxValue;
              */
-
-
         }
 
         return R[houses];
