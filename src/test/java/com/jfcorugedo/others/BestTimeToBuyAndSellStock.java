@@ -39,7 +39,7 @@ public class BestTimeToBuyAndSellStock {
         assertThat(solution(Arrays.asList(1, 5, 3, 6))).isEqualTo(5);
         assertThat(solution(Arrays.asList(7, 1, 5, 3, 6, 4))).isEqualTo(5);
         assertThat(solution(Arrays.asList(7, 1, 5, 3, 6, 7))).isEqualTo(6);
-        assertThat(solution(Arrays.asList(4,3,2,1))).isEqualTo(0);
+        assertThat(solution(Arrays.asList(4,3,2,1))).isZero();
     }
 
     /**
@@ -93,7 +93,7 @@ public class BestTimeToBuyAndSellStock {
         assertThat(solution2(Arrays.asList(1, 5, 3, 6))).isEqualTo(7);
         assertThat(solution2(Arrays.asList(7, 1, 5, 3, 6, 4))).isEqualTo(7);
         assertThat(solution2(Arrays.asList(7, 1, 5, 3, 6, 7))).isEqualTo(8);
-        assertThat(solution(Arrays.asList(4,3,2,1))).isEqualTo(0);
+        assertThat(solution(Arrays.asList(4,3,2,1))).isZero();
         assertThat(solution(IntStream.range(1, 1001).boxed().collect(Collectors.toList()))).isEqualTo(999);
     }
 

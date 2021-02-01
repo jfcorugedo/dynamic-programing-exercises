@@ -26,8 +26,8 @@ public class BinaryGap {
     public void binaryGap(){
 
         assertThat(solution(1041)).isEqualTo(5);
-        assertThat(solution(15)).isEqualTo(0);
-        assertThat(solution(32)).isEqualTo(0);
+        assertThat(solution(15)).isZero();
+        assertThat(solution(32)).isZero();
     }
 
     public int solution(int N) {

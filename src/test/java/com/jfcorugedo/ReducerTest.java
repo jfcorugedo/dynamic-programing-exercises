@@ -15,7 +15,7 @@ public class ReducerTest {
                 Arrays.stream("012345678".split(""))
                         .reduce( (acc, cur) -> Integer.parseInt(acc) > Integer.parseInt(cur) ? acc : cur)
                         .get()
-        ).isEqualTo("8");
+        ).contains("8");
     }
 
     @Test
