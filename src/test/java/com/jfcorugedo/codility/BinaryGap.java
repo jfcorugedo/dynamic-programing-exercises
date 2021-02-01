@@ -3,7 +3,6 @@ package com.jfcorugedo.codility;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,20 +31,12 @@ public class BinaryGap {
 
     public int solution(int N) {
 
-        System.out.println(Integer.toBinaryString(N));
-        System.out.println(Arrays.toString(Integer.toBinaryString(N).replaceAll("^0+", "").replaceAll("0+$", "").split("1")));
-        System.out.println(Arrays
-                .stream(Integer.toBinaryString(N).split("1"))
-                .filter(gap -> gap.length() > 0).collect(Collectors.toList()));
-
-
         return Arrays
-                .stream(Integer.toBinaryString(N).split("1"))
+                .stream(Integer.toBinaryString(N).replaceAll("^0+", "").replaceAll("0+$", "").split("1"))
                 .filter(gap -> gap.length() > 0)
                 .map(gap -> gap.split(""))
                 .mapToInt(gap -> gap.length)
                 .reduce( (acc, current) -> {
-                    System.out.println(String.format("%d %d", acc, current));
                     return acc > current ? acc : current;
                 }).orElse(0);
 
