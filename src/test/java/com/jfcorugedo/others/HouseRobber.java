@@ -90,12 +90,17 @@ public class HouseRobber {
         R[1] = money.get(0);
 
         for(int i = 2 ; i <= houses ; i++) {
+
+            R[i] = max(R[i-1], money.get(i-1) + R[i-2]);
+            /* Old way
             int maxValue = R[i-1];
             for (int j = i - 2; j >= 0; j--) {
                 maxValue = max(maxValue, money.get(i - 1) + R[j]);
             }
-
             R[i] = maxValue;
+             */
+
+
         }
 
         return R[houses];
