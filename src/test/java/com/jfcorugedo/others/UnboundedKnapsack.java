@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.max;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -43,9 +44,26 @@ public class UnboundedKnapsack {
     @Test
     public void knapsack01() {
 
+        assertThat(solution(asList(Item.builder().value(10).weight(1).build()),8)).isEqualTo(80);
         assertThat(
                 solution(
-                        Arrays.asList(
+                        asList(
+                                Item.builder().value(10).weight(1).build(),
+                                Item.builder().value(40).weight(7).build()
+                        ),
+                        8)
+        ).isEqualTo(80);
+        assertThat(
+                solution(
+                        asList(
+                                Item.builder().value(10).weight(1).build(),
+                                Item.builder().value(40).weight(3).build()
+                        ),
+                        8)
+        ).isEqualTo(100);
+        assertThat(
+                solution(
+                        asList(
                                 Item.builder().value(10).weight(1).build(),
                                 Item.builder().value(40).weight(3).build(),
                                 Item.builder().value(50).weight(4).build(),
@@ -57,9 +75,13 @@ public class UnboundedKnapsack {
 
     public int solution(List<Item> items, int knapsackMaxWeight) {
 
-        int[] R = new int[knapsackMaxWeight+1];
+        int[] R = new int[knapsackMaxWeight + 1];
         R[0] = 0;
 
+        //If we choose to put the element: value(n) + R[n - weight(n)
+        //if not: R[n-1]
+        //R[n] = max{R[n-1], value(n) + R[n - weight(n)] }
+        //making sure though we cannot exceed the maximum weight of the knapsack
         for(int i = 1 ; i <= knapsackMaxWeight ; i++) {
             for(int j = 0 ; j < items.size() ; j++) {
                 if(items.get(j).getWeight() <= i) {
