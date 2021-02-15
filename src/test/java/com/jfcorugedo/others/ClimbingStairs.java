@@ -31,7 +31,7 @@ public class ClimbingStairs {
      * f(n) = f(n-1) + f(n-2)
      * and when n is 1, there is only one way of getting to the top.
      * When n is 2 there are two ways of getting to the top.
-     * This solution has a complexity of O(2^n) (exponential) so it is not a really good choice for large numbers
+     * This solution has a complexity of O(n^2) (quadratic) so it is not a really good choice for large numbers
      * @param steps
      * @return
      */
