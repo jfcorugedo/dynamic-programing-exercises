@@ -98,6 +98,13 @@ public class Day10AdapterArray {
     }
 
     @Test
+    public void threeAdaptersWithJustOneCombination() {
+        List<Integer> adapters = Arrays.asList(1, 4, 7).stream().collect(Collectors.toList());
+
+        assertThat(solution(adapters)).isEqualTo(1L);
+    }
+
+    @Test
     public void partTwoSample1() {
         List<Integer> adapters = Arrays.asList(1, 4, 5, 6, 7, 10, 11, 12, 15, 16, 19).stream().collect(Collectors.toList());
 
