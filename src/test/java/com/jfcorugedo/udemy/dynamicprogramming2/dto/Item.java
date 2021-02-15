@@ -1,4 +1,4 @@
-package com.jfcorugedo.others.dto;
+package com.jfcorugedo.udemy.dynamicprogramming2.dto;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

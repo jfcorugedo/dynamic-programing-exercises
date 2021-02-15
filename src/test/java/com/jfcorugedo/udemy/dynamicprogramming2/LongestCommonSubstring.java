@@ -1,4 +1,4 @@
-package com.jfcorugedo.others;
+package com.jfcorugedo.udemy.dynamicprogramming2;
 
 import org.junit.Test;
 

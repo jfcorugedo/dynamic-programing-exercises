@@ -1,9 +1,8 @@
-package com.jfcorugedo.others;
+package com.jfcorugedo.udemy.dynamicprogramming2;
 
-import com.jfcorugedo.others.dto.Item;
+import com.jfcorugedo.udemy.dynamicprogramming2.dto.Item;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.max;
