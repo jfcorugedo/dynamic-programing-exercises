@@ -83,7 +83,7 @@ public class BestTimeToBuyAndSellStock {
     }
 
     /**
-     * Same problem but now you can perform more than one trasaction. You an buy and sell many times, but you have
+     * Same problem but now you can perform more than one transaction. You can buy and sell many times, but you have
      * to sell before buying again
      */
     @Test
@@ -102,7 +102,11 @@ public class BestTimeToBuyAndSellStock {
      *
      * The only constrain is that you need to sell before buying again.
      *
-     * R[n] = max{prices(n) - price(n-1) + R[n-2], prices(n) - price(n-2) + R[n-3], ..., price(n) - price(1) + R[0]}
+     * Now there are several options:
+     * - You don't sell at n day, so the max profit will be R[n-1]
+     * - You sell at day n, so the max profit will be trying to buy at any price before the current one: prices(n) - prices(n-1) + R[n-2]....
+     *
+     * R[n] = max{R[n-1], prices(n) - price(n-1) + R[n-2], prices(n) - price(n-2) + R[n-3], ..., price(n) - price(1) + R[0]}
      *
      * @param prices
      * @return
@@ -114,10 +118,10 @@ public class BestTimeToBuyAndSellStock {
         R[0] = 0;
         R[1] = 0;
 
-        int maxValue = -1;
-        for(int i = 2; i <= prices.size() ; i++) {
-            for(int j = i-1 ; j >= 0 ; j--) {
-                maxValue = max(maxValue, prices.get(i-1) - prices.get(i-j-1) + R[i-j-1]);
+        for(int i = 2 ; i <= prices.size() ; i++) {
+            int maxValue = R[i-1];
+            for(int j = i-1 ; j >0 ; j--) {
+                maxValue = max(maxValue, prices.get(i-1) - prices.get(j-1) + R[j-1]);
             }
             R[i] = maxValue;
         }
