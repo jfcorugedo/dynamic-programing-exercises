@@ -80,6 +80,12 @@ public class SquaredArray {
         assertThat(solution2(new long[]{1, 2, 3}, new long[]{1, 4, 9})).isTrue();
     }
 
+    @Test
+    public void notSquared2() {
+
+        assertThat(solution2(new long[]{3}, new long[]{4})).isFalse();
+    }
+
     /**
      * Now instead of sorting, we are going to use frequency counter pattern
      */
