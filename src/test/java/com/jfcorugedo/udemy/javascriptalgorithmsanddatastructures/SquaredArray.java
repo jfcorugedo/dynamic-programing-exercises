@@ -104,7 +104,7 @@ public class SquaredArray {
 
         boolean same = true;
         for(int i = 0 ; i < first.length && same ; i++) {
-            same = firstCounter.get(first[i]) == secondCounter.get(first[i] * first[i]);
+            same = firstCounter.get(first[i]).equals(secondCounter.get(first[i] * first[i]));
         }
 
         return same;
