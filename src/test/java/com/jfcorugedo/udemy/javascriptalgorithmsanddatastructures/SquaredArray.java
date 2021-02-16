@@ -45,6 +45,12 @@ public class SquaredArray {
     }
 
     @Test
+    public void squaredArrayRepeatedValues() {
+
+        assertThat(solution(new long[]{1, 2, 3, 1, 2}, new long[]{1, 4, 9, 1, 4})).isTrue();
+    }
+
+    @Test
     public void bitInputs() {
 
         assertThat(solution(LongStream.range(1, 10000001).toArray(), LongStream.range(1, 10000001).map(i -> i*i).toArray())).isTrue();
