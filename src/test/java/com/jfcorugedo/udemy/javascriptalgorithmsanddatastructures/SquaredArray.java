@@ -3,6 +3,8 @@ package com.jfcorugedo.udemy.javascriptalgorithmsanddatastructures;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.LongStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,6 +69,36 @@ public class SquaredArray {
         boolean same = true;
         for(int i = 0 ; i < first.length && same ; i++) {
             same = second[i] == (first[i]*first[i]);
+        }
+
+        return same;
+    }
+
+    @Test
+    public void squaredArray2() {
+
+        assertThat(solution2(new long[]{1, 2, 3}, new long[]{1, 4, 9})).isTrue();
+    }
+
+    /**
+     * Now instead of sorting, we are going to use frequency counter pattern
+     */
+    private boolean solution2(long[] first, long[] second) {
+        if((first == null || first.length == 0) != (second == null || second.length == 0)) return false;
+
+        Map<Long, Integer> firstCounter = new HashMap<>();
+        Map<Long, Integer> secondCounter = new HashMap<>();
+
+        for (long l : first) {
+            firstCounter.put(l, firstCounter.computeIfAbsent(l, k -> 0) + 1);
+        }
+        for (long l : second) {
+            secondCounter.put(l, secondCounter.computeIfAbsent(l, k -> 0) + 1);
+        }
+
+        boolean same = true;
+        for(int i = 0 ; i < first.length && same ; i++) {
+            same = firstCounter.get(first[i]) == secondCounter.get(first[i] * first[i]);
         }
 
         return same;
