@@ -14,8 +14,8 @@ public class StairwayToHeaven {
     @Test
     public void stairwayToHeaven() {
 
-        assertThat(solution(0)).isEqualTo(1);
-        assertThat(solution(1)).isEqualTo(1);
+        assertThat(solution(0)).isOne();
+        assertThat(solution(1)).isOne();
         assertThat(solution(2)).isEqualTo(2);
         assertThat(solution(3)).isEqualTo(3);
         assertThat(solution(4)).isEqualTo(5);

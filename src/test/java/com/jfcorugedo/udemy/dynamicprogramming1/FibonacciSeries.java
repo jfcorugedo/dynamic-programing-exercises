@@ -23,9 +23,9 @@ public class FibonacciSeries {
     @Test
     public void fibonacciSeries() {
 
-        assertThat(solution(0)).isEqualTo(0);
-        assertThat(solution(1)).isEqualTo(1);
-        assertThat(solution(2)).isEqualTo(1);
+        assertThat(solution(0)).isZero();
+        assertThat(solution(1)).isOne();
+        assertThat(solution(2)).isOne();
         assertThat(solution(3)).isEqualTo(2);
         assertThat(solution(7)).isEqualTo(13);
         assertThat(solution(43)).isEqualTo(433494437);
@@ -44,9 +44,9 @@ public class FibonacciSeries {
     @Test
     public void fibonacciSeries2() {
 
-        assertThat(solution2(0)).isEqualTo(0);
-        assertThat(solution2(1)).isEqualTo(1);
-        assertThat(solution2(2)).isEqualTo(1);
+        assertThat(solution2(0)).isZero();
+        assertThat(solution2(1)).isOne();
+        assertThat(solution2(2)).isOne();
         assertThat(solution2(3)).isEqualTo(2);
         assertThat(solution2(7)).isEqualTo(13);
         assertThat(solution2(43)).isEqualTo(433494437);
