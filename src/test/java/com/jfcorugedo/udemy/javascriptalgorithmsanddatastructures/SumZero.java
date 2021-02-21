@@ -23,6 +23,8 @@ public class SumZero {
         assertThat(solution(new int[]{-1, 1})).contains(-1, 1);
         assertThat(solution(IntStream.range(-2, 3).toArray())).contains(-2, 2);
         assertThat(solution(new int[]{-10,-4,-3,0,1})).isEmpty();
+        assertThat(solution(IntStream.range(-2, 30).toArray())).contains(-2, 2);
+        assertThat(solution(IntStream.range(-20, 3).toArray())).contains(-2, 2);
     }
 
     private int[] solution(int[] values) {
@@ -30,11 +32,48 @@ public class SumZero {
 
         int[] R = new int[0];
 
-        for(int i = 0 ; i < values.length/2 && R.length == 0 ; i++) {
-            for(int j = values.length-1 ; j >= values.length/2 && R.length == 0 ; j--) {
+        for(int i = 0 ; i < values.length && R.length == 0 ; i++) {
+            for(int j = values.length-1 ; j > i && R.length == 0 ; j--) {
                 if(values[i] + values[j] == 0){
                     R = new int[]{values[i], values[j]};
                 }
+            }
+        }
+        return R;
+    }
+
+    @Test
+    public void sumZero2() {
+
+        assertThat(solution2(null)).isEmpty();
+        assertThat(solution2(new int[0])).isEmpty();
+        assertThat(solution2(new int[]{0})).isEmpty();
+        assertThat(solution2(new int[]{-1, 1})).contains(-1, 1);
+        assertThat(solution2(IntStream.range(-2, 3).toArray())).contains(-2, 2);
+        assertThat(solution2(new int[]{-10,-4,-3,0,1})).isEmpty();
+        assertThat(solution2(IntStream.range(-2, 30).toArray())).contains(-2, 2);
+        assertThat(solution2(IntStream.range(-20, 3).toArray())).contains(-2, 2);
+    }
+
+    /**
+     * Now we are going to use multiple pointers pattern to solve the problem
+     */
+    private int[] solution2(int[] values) {
+        if(values == null || values.length < 2) return new int[0];
+
+        int[] R = new int[0];
+
+        int left = 0;
+        int right = values.length-1;
+
+        while(left < right && R.length == 0) {
+            int sum = values[left] + values[right];
+            if(sum == 0) {
+                R = new int[]{values[left], values[right]};
+            } else if(sum > 0) {
+                right--;
+            } else {
+                left++;
             }
         }
         return R;
