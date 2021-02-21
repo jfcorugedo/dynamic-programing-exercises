@@ -24,7 +24,10 @@ public class OnTheWayHome {
         assertThat(solution(0, 0)).isEqualTo(1);
         assertThat(solution(1, 1)).isEqualTo(1);
         assertThat(solution(2, 2)).isEqualTo(2);
+        assertThat(solution(3, 2)).isEqualTo(3);
+        assertThat(solution(2, 3)).isEqualTo(3);
         assertThat(solution(3, 3)).isEqualTo(6);
+        assertThat(solution(4, 3)).isEqualTo(10);
     }
 
     /**
@@ -56,6 +59,46 @@ public class OnTheWayHome {
                     R[0][0] = 1;
                 } else {
                     R[x][y] = ((x - 1) >= 0 ? R[x - 1][y] : 0) + ((y - 1) >= 0 ? R[x][y - 1] : 0);
+                }
+            }
+        }
+
+        return R[m-1][n-1];
+    }
+
+
+    @Test
+    public void onTheWayHome2() {
+
+        assertThat(solution2(0, 0)).isEqualTo(1);
+        assertThat(solution2(1, 1)).isEqualTo(1);
+        assertThat(solution2(2, 2)).isEqualTo(2);
+        assertThat(solution2(3, 2)).isEqualTo(3);
+        assertThat(solution2(2, 3)).isEqualTo(3);
+        assertThat(solution2(3, 3)).isEqualTo(6);
+        assertThat(solution2(4, 3)).isEqualTo(10);
+    }
+
+    /**
+     * Same as previous one but simplifying the expressions by adding more base cases.
+     *
+     * Base cases:
+     * R[0][n] = 1 // You can only go right to get to that point
+     * R[m][0] = 1 // You can only go down to get to that point
+     *
+     */
+    private int solution2(int m, int n) {
+        if(m == 0 || n == 0) return 1; //If there is no two-dimension, there is only one way
+        if(m == 1 && n == 1) return 1;
+
+        int[][] R = new int[m][n];
+
+        for(int x = 0 ; x < m ; x++) {
+            for(int y = 0 ; y < n ; y++) {
+                if(x == 0 || y == 0) {
+                    R[x][y] = 1;
+                } else {
+                    R[x][y] = R[x - 1][y] + R[x][y - 1];
                 }
             }
         }
