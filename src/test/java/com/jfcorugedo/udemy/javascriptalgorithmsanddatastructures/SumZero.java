@@ -2,6 +2,8 @@ package com.jfcorugedo.udemy.javascriptalgorithmsanddatastructures;
 
 import org.junit.Test;
 
+import java.util.stream.IntStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -19,6 +21,8 @@ public class SumZero {
         assertThat(solution(new int[0])).isEmpty();
         assertThat(solution(new int[]{0})).isEmpty();
         assertThat(solution(new int[]{-1, 1})).contains(-1, 1);
+        assertThat(solution(IntStream.range(-2, 3).toArray())).contains(-2, 2);
+        assertThat(solution(new int[]{-10,-4,-3,0,1})).isEmpty();
     }
 
     private int[] solution(int[] values) {
@@ -26,8 +30,8 @@ public class SumZero {
 
         int[] R = new int[0];
 
-        for(int i = 0 ; i < values.length ; i++) {
-            for(int j = values.length-1 ; j >= 0 ; j--) {
+        for(int i = 0 ; i < values.length/2 && R.length == 0 ; i++) {
+            for(int j = values.length-1 ; j >= values.length/2 && R.length == 0 ; j--) {
                 if(values[i] + values[j] == 0){
                     R = new int[]{values[i], values[j]};
                 }
