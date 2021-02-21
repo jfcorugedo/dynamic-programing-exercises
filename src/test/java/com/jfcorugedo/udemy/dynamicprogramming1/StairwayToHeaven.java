@@ -19,6 +19,7 @@ public class StairwayToHeaven {
         assertThat(solution(2)).isEqualTo(2);
         assertThat(solution(3)).isEqualTo(3);
         assertThat(solution(4)).isEqualTo(5);
+        assertThat(solution(5)).isEqualTo(8);
         assertThat(solution(6)).isEqualTo(13);
     }
 
