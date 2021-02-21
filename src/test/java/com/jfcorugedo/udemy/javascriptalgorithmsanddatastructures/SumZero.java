@@ -27,6 +27,11 @@ public class SumZero {
         assertThat(solution(IntStream.range(-20, 3).toArray())).contains(-2, 2);
     }
 
+    /**
+     * This solution has a quadratic complexity O(n**2)
+     * @param values
+     * @return
+     */
     private int[] solution(int[] values) {
         if(values == null || values.length < 2) return new int[0];
 
@@ -56,7 +61,9 @@ public class SumZero {
     }
 
     /**
-     * Now we are going to use multiple pointers pattern to solve the problem
+     * Now we are going to use multiple pointers pattern to solve the problem.
+     *
+     * This solution has a complexity of O(n)
      */
     private int[] solution2(int[] values) {
         if(values == null || values.length < 2) return new int[0];
