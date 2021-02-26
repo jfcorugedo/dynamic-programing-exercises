@@ -12,7 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Given a set of n items, where item i has weight w[i] and value v[i], and a knapsack with capacity W.
  *
- * Create an algorithm that maximize the value of the elements inside the knapsack without exceeding the maximum weight.
+ * And given that there is only one item of each type.
+ *
+ * Then create an algorithm that maximize the value of the elements inside the knapsack without exceeding the maximum weight.
  *
  * Example:
  * W = 8
